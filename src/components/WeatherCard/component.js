@@ -6,13 +6,15 @@ import Condition from './Condition'
 
 const WeatherCard = (props) => {
 
-    const red = 100
+    let temp = 20
+    let highColor = (1 - (props.temp - 12) / 28) * 255
+    let lowColor = highColor - 150
     const Card = styled.div`
         margin: 0 auto;
-        background: linear-gradient(to top, rgba(${red}, 200, 200), lightblue);
+        background: linear-gradient(to bottom, rgba(255, ${highColor}, 0), rgb(255, ${lowColor}, 0));
         color: aliceblue;
         width: 200px;
-        height: 250px;
+        height: 240px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
