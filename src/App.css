@@ -2,17 +2,6 @@
   margin: 0 auto;
 }
 
-.location {
-  text-align: center;
-}
-
-.card {
-  
-}
-
-.city {
-  font-size: 1.6em;
-}
 
 /* .country {
 
@@ -20,8 +9,4 @@
 
 .temp {
   font-size: 1.5em;
-}
-
-.icon {
-  width: 40%;
 }
