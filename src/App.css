@@ -7,21 +7,21 @@
 }
 
 .card {
-  margin: 0 auto;
-  background: linear-gradient(to top, orange, lightyellow);
-  width: 200px;
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-  align-items: center;
-  border-radius: 15px;
+  
 }
 
 .city {
-  /* font-size: 1.6em; */
+  font-size: 1.6em;
 }
 
-.country {
+/* .country {
 
+} */
+
+.temp {
+  font-size: 1.5em;
+}
+
+.icon {
+  width: 40%;
 }
