@@ -17,7 +17,7 @@ const WeatherCard = props => {
             rgb(255, ${highColor}, 0), 
             rgb(255, ${lowColor}, 0)
         )`;
-    } else if (+props.temp <= 12) { 
+    } else if (props.temp <= 12) { 
         //For Cold weather
         highColor = (1 - (props.temp + 20) / 32) * 255;
         lowColor = highColor - 150;
@@ -29,7 +29,7 @@ const WeatherCard = props => {
     }
     const Card = styled.div`
         margin: 0 auto;
-        background = ${bg};
+        background: ${bg};
         color: aliceblue;
         width: 200px;
         height: 240px;
