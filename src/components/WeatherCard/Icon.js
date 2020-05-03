@@ -50,7 +50,7 @@ const Icon = (props) => {
     }
 
     return (
-        <Icon className='icon' src={icon} alt="Weather icon"/>
+        <Icon src={icon} alt="Weather icon"/>
     )
 }
 
