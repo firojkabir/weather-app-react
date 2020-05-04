@@ -8,7 +8,7 @@ const WeatherCard = ({ temp, condition, city, country }) => {
     let highColor = 0;
     let lowColor = 0;
     let bg = null;
-    if (temp > 12) { 
+    if (temp > 12) {
         //For Hot weather
         highColor = (1 - (temp - 12) / 28) * 255;
         lowColor = highColor - 150;
@@ -17,7 +17,7 @@ const WeatherCard = ({ temp, condition, city, country }) => {
             rgb(255, ${highColor}, 0), 
             rgb(255, ${lowColor}, 0)
         )`;
-    } else if (temp <= 12) { 
+    } else if (temp <= 12) {
         //For Cold weather
         highColor = (1 - (temp + 20) / 32) * 255;
         lowColor = highColor - 150;
