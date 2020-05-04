@@ -15,7 +15,7 @@ const Icon = (props) => {
             icon = `./img/Mostly Sunny-2x.png`;
             break;
         case "Haze":
-            icon = `./img Haze-2x.png`;
+            icon = `./img/Haze-2x.png`;
             break;
         case "Hail":
             icon = `./img/Hail-2x.png`;

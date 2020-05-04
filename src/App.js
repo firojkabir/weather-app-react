@@ -4,14 +4,15 @@ import WeatherCard from './components/WeatherCard/component';
 
 function App() {
 
-	const [city, setCity] = useState('Dhaka, BD')
+	const [query, setQuery] = useState('Dhaka, BD')
+	const [city, setCity] = useState('')
 	const [temp, setTemp] = useState('')
 	const [condition, setCondition] = useState('')
 	const [country, setCountry] = useState('')
 
-	const data = async () => {
+	const data = async (q) => {
 		const apiRes = await fetch(
-			`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=fea889a778a75eb0e579a6800b8b859f`
+			`http://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&appid=fea889a778a75eb0e579a6800b8b859f`
 		)
 		const resJSON = await apiRes.json()
 		return resJSON
@@ -19,20 +20,23 @@ function App() {
 	
 	const handleSearch = e => {
 		e.preventDefault();
-		data().then(res => {
+		data(query).then(res => {
 			setTemp(res.main.temp)
+			setCondition(res.weather[0].main)
+			setCountry(res.sys.country)
+			setCity(res.name)
 		})
 	}
 
 	return (
 		<div className="App">
-			<WeatherCard temp={temp} condition="Rain" city='Dhaka' country='BD' />
+			<WeatherCard temp={temp} condition={condition} city={city} country={country} />
 			{/* <WeatherCard temp={15} condition="Drizzle" city='Sydney' country='AU' />
 			<WeatherCard temp={40} condition="Thunderstorm" city='New York' country='US' /> */}
 			<form>
 				<input 
-					value={city}
-					onChange={(e) => setCity(e.target.value)}
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
 				/>
 				<button onClick={e=>handleSearch(e)}>Search</button>
 			</form>
