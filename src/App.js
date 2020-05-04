@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 import WeatherCard from './components/WeatherCard/component';
 
 function App() {
 
 	const [query, setQuery] = useState('Dhaka, BD')
-	const [city, setCity] = useState('')
-	const [temp, setTemp] = useState('')
-	const [condition, setCondition] = useState('')
-	const [country, setCountry] = useState('')
+	const [weather, setWeather] = useState({
+		temp: null,
+		city: null,
+		condition: null,
+		country: null
+	})
 
 	const data = async (q) => {
 		const apiRes = await fetch(
@@ -21,18 +23,34 @@ function App() {
 	const handleSearch = e => {
 		e.preventDefault();
 		data(query).then(res => {
-			setTemp(res.main.temp)
-			setCondition(res.weather[0].main)
-			setCountry(res.sys.country)
-			setCity(res.name)
+			setWeather({
+				temp: res.main.temp,
+				city: res.name,
+				condition: res.weather[0].main,
+				country: res.sys.country
+			})
 		})
 	}
 
+	useEffect(() => {
+		data(query).then(res => {
+			setWeather({
+				temp: res.main.temp,
+				city: res.name,
+				condition: res.weather[0].main,
+				country: res.sys.country
+			})
+		})
+	}, [])
+
 	return (
 		<div className="App">
-			<WeatherCard temp={temp} condition={condition} city={city} country={country} />
-			{/* <WeatherCard temp={15} condition="Drizzle" city='Sydney' country='AU' />
-			<WeatherCard temp={40} condition="Thunderstorm" city='New York' country='US' /> */}
+			<WeatherCard 
+				temp={weather.temp} 
+				condition={weather.condition} 
+				city={weather.city} 
+				country={weather.country} 
+			/>
 			<form>
 				<input 
 					value={query}
