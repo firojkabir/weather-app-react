@@ -7,7 +7,7 @@ function App() {
 
 	return (
 		<div className="App">
-			<WeatherEngine />
+			<WeatherEngine location="Dhaka, BD"/>
 		</div>
 	)
 }
