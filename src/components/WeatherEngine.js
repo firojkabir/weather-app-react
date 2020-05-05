@@ -6,6 +6,7 @@ const WeatherEngine = ({ location }) => {
 
     const [query, setQuery] = useState('')
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
     const [weather, setWeather] = useState({
         temp: null,
         city: null,
@@ -14,17 +15,22 @@ const WeatherEngine = ({ location }) => {
     })
     //Defining the data fetching function
     const getWeather = async (q) => {
+        setQuery('')
         setLoading(true)
-        const apiRes = await fetch(
-            `http://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&appid=fea889a778a75eb0e579a6800b8b859f`
-        )
-        const resJSON = await apiRes.json()
-        setWeather({
-            temp: resJSON.main.temp,
-            city: resJSON.name,
-            condition: resJSON.weather[0].main,
-            country: resJSON.sys.country
-        })
+        try {
+            const apiRes = await fetch(
+                `http://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&appid=fea889a778a75eb0e579a6800b8b859f`
+            )
+            const resJSON = await apiRes.json()
+            setWeather({
+                temp: resJSON.main.temp,
+                city: resJSON.name,
+                condition: resJSON.weather[0].main,
+                country: resJSON.sys.country
+            }) 
+        } catch (error) {
+            setError(true)
+        }
         setLoading(false)
     }
     //Function to handle search queries from the user side
@@ -39,7 +45,7 @@ const WeatherEngine = ({ location }) => {
 
     return (
         <div>
-            {!loading ?
+            {!loading && !error ?
                 (
                     <div>
                         <WeatherCard
@@ -58,12 +64,20 @@ const WeatherEngine = ({ location }) => {
                             </button>
                         </form>
                     </div>
-                ) : 
+                ) : loading ?
                 (
                     <div style={{ color: 'black'}}>
                         Loading
                     </div>
-                )}
+                ) : !loading && error ? 
+                    (
+                        <div>
+                            There has been an error!!<br /><br />
+                            <button onClick={() => setError(false)}>
+                                Reset!
+                            </button>
+                        </div>
+                    ) : null }
         </div>
     );
 }
