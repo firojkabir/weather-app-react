@@ -11,36 +11,27 @@ function App() {
 		condition: null,
 		country: null
 	})
-
-	const data = async (q) => {
+	//Defining the data fetching function
+	const getWeather = async (q) => {
 		const apiRes = await fetch(
 			`http://api.openweathermap.org/data/2.5/weather?q=${q}&units=metric&appid=fea889a778a75eb0e579a6800b8b859f`
 		)
 		const resJSON = await apiRes.json()
-		return resJSON
+		setWeather({
+			temp: resJSON.main.temp,
+			city: resJSON.name,
+			condition: resJSON.weather[0].main,
+			country: resJSON.sys.country
+		})
 	}
-	
+	//Function to handle search queries from the user side
 	const handleSearch = e => {
 		e.preventDefault();
-		data(query).then(res => {
-			setWeather({
-				temp: res.main.temp,
-				city: res.name,
-				condition: res.weather[0].main,
-				country: res.sys.country
-			})
-		})
+		getWeather(query)
 	}
-
+	//This hook will make the code run only once the component is mounted
 	useEffect(() => {
-		data(query).then(res => {
-			setWeather({
-				temp: res.main.temp,
-				city: res.name,
-				condition: res.weather[0].main,
-				country: res.sys.country
-			})
-		})
+		getWeather(query)
 	}, [])
 
 	return (
